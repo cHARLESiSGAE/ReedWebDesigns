@@ -115,6 +115,24 @@ export default function HearthHoneyBistroDemo() {
         </div>
       </section>
 
+      {/* Sales label (keep demo design; small info panel under hero) */}
+      <div className="mx-auto max-w-6xl px-6">
+        <div
+          className="rounded-3xl border bg-white p-5"
+          style={{ borderColor: "rgba(0,0,0,0.10)", boxShadow: "0 20px 60px rgba(31,28,24,0.10)" }}
+        >
+          <div className="text-xs font-semibold" style={{ color: palette.amber }}>
+            Example of a Starter Site — starting at $249
+          </div>
+          <div className="mt-1 text-sm" style={{ color: "rgba(31,28,24,0.72)" }}>
+            Best for restaurants that need a clean professional website quickly.
+          </div>
+          <div className="mt-1 text-sm" style={{ color: "rgba(31,28,24,0.72)" }}>
+            Call or text Charlie Reed: <span className="font-semibold">858-305-5764</span>
+          </div>
+        </div>
+      </div>
+
       {/* About */}
       <section id="about" className="mx-auto max-w-6xl px-6 py-10">
         <div className="grid gap-6 md:grid-cols-12 md:items-start">

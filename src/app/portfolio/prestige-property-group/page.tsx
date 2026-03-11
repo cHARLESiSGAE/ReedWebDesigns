@@ -42,6 +42,17 @@ export default function PrestigePropertyGroupDemo() {
           </div>
         </div>
 
+        {/* Sales label (keep page design; small premium info panel under hero) */}
+        <div className="mt-6 rounded-2xl border border-cyan-200 bg-gradient-to-b from-cyan-50 to-white p-4">
+          <div className="text-xs font-semibold text-cyan-700">Example of a Pro Site — starting at $399</div>
+          <div className="mt-1 text-sm text-zinc-600">
+            Best for real estate agents who want a stronger online presence and lead capture.
+          </div>
+          <div className="mt-1 text-sm text-zinc-600">
+            Call or text Charlie Reed: <span className="font-semibold">858-305-5764</span>
+          </div>
+        </div>
+
         <section className="mt-10 rounded-3xl border border-zinc-200 bg-gradient-to-b from-white to-zinc-50 p-8">
           <p className="max-w-3xl text-lg leading-relaxed text-zinc-700">
             Welcome! Whether you're buying, selling, or exploring your options, I

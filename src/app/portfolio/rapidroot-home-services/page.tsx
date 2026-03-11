@@ -41,6 +41,17 @@ export default function RapidRootHomeServicesDemo() {
           </div>
         </div>
 
+        {/* Sales label (keep page design; small premium info panel under hero) */}
+        <div className="mt-6 rounded-2xl border border-violet-200 bg-gradient-to-b from-violet-50 to-white p-4">
+          <div className="text-xs font-semibold text-violet-700">Example of a Business Site — starting at $900</div>
+          <div className="mt-1 text-sm text-zinc-600">
+            Best for service companies that want a stronger multi-page website and more leads.
+          </div>
+          <div className="mt-1 text-sm text-zinc-600">
+            Call or text Charlie Reed: <span className="font-semibold">858-305-5764</span>
+          </div>
+        </div>
+
         <section className="mt-10 rounded-3xl border border-zinc-200 bg-zinc-50 p-8">
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {[
