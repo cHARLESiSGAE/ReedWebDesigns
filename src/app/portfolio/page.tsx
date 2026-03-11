@@ -22,7 +22,7 @@ export default function PortfolioPage() {
     <main className="premium-radial relative overflow-hidden">
       <div className="mx-auto max-w-6xl px-6 py-16">
         <h1 className="text-3xl font-semibold tracking-tight md:text-5xl">Portfolio</h1>
-        <p className="mt-4 max-w-2xl text-white/70">
+        <p className="mt-5 max-w-2xl text-lg leading-8 font-medium text-white/75">
           Client-ready niche demos that show exactly what you’ll get.
         </p>
 
@@ -61,7 +61,7 @@ export default function PortfolioPage() {
                       <div className="absolute bottom-4 left-4 right-4">
                         <div className="text-xs text-white/70">{d.industry}</div>
                         <div className="mt-1 text-lg font-semibold tracking-tight">{d.title}</div>
-                        <div className="mt-1 text-sm text-white/70">{d.tier}</div>
+                        <div className="mt-1 text-sm font-medium text-white/75">{d.tier}</div>
                       </div>
                     </div>
                   </div>

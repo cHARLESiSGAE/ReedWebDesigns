@@ -34,7 +34,7 @@ export default function PricingPage() {
         <h1 className="text-3xl font-semibold tracking-tight md:text-5xl">
           Pricing
         </h1>
-        <p className="mt-4 max-w-2xl text-white/70">
+        <p className="mt-5 max-w-2xl text-lg leading-8 font-medium text-white/75">
           Clear starting points. Final pricing depends on pages, features, and how custom you want the build.
         </p>
 
@@ -53,7 +53,7 @@ export default function PricingPage() {
                   "transition",
                   "card-lift",
                   accent.glow,
-                  isPopular ? "shadow-[0_0_0_1px_rgba(34,211,238,0.22)]" : "",
+                  isPopular ? "shadow-[0_0_0_1px_rgba(34,211,238,0.22)] md:scale-[1.02] md:-translate-y-1 z-10" : "",
                 ].join(" ")}
               >
                 {isPopular ? (
@@ -89,8 +89,8 @@ export default function PricingPage() {
                     </div>
                   </div>
 
-                  <p className="mt-4 text-sm text-white/70">{p.description}</p>
-                  <ul className="mt-4 space-y-2 text-sm text-white/70">
+                  <p className="mt-4 text-sm leading-7 font-medium text-white/75">{p.description}</p>
+                  <ul className="mt-4 space-y-2 text-sm font-medium text-white/75">
                     {p.includes.map((i) => (
                       <li key={i} className="flex gap-2">
                         <span className="text-white/40">•</span>

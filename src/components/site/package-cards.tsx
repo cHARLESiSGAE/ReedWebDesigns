@@ -47,7 +47,7 @@ export function PackageCards({ showManagement = true }: { showManagement?: boole
                 "transition",
                 "card-lift",
                 accent.glow,
-                isPopular ? "shadow-[0_0_0_1px_rgba(34,211,238,0.22)]" : "",
+                isPopular ? "shadow-[0_0_0_1px_rgba(34,211,238,0.22)] md:scale-[1.02] md:-translate-y-1 z-10" : "",
               ].join(" ")}
             >
               {isPopular ? (
@@ -83,8 +83,8 @@ export function PackageCards({ showManagement = true }: { showManagement?: boole
                   </div>
                 </div>
 
-                <p className="mt-4 text-sm text-white/70">{p.description}</p>
-                <ul className="mt-4 space-y-2 text-sm text-white/70">
+                <p className="mt-4 text-sm leading-7 font-medium text-white/75">{p.description}</p>
+                <ul className="mt-4 space-y-2 text-sm font-medium text-white/75">
                   {p.includes.slice(0, 5).map((i) => (
                     <li key={i} className="flex gap-2">
                       <span className="text-white/40">•</span>
