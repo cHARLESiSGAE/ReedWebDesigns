@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Card } from "@/components/ui/card";
 
 type PaymentItem = {
@@ -51,6 +52,14 @@ export default function PaymentPage() {
       <h1 className="text-3xl font-semibold tracking-tight md:text-5xl">Payment</h1>
       <p className="mt-4 max-w-2xl text-white/70">
         Use the buttons below to pay via Stripe checkout.
+      </p>
+
+      <p className="mt-6 max-w-2xl text-white/70">
+        Before paying, please fill out our quick intake form so we can hit the ground running.{" "}
+        <Link className="text-white underline underline-offset-4" href="/intake">
+          /intake
+        </Link>
+        .
       </p>
 
       <div className="mt-10 grid gap-5 md:grid-cols-2">
