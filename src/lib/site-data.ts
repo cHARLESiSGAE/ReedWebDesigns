@@ -3,6 +3,8 @@ export const business = {
   owner: "Charlie Reed",
   phoneDisplay: "858-305-5764",
   phoneHref: "tel:8583055764",
+  emailDisplay: "charlespkon@gmail.com",
+  emailHref: "mailto:charlespkon@gmail.com",
 };
 
 export type PackageTier = {

@@ -17,9 +17,13 @@ export default function ContactPage() {
         >
           {business.phoneDisplay}
         </a>
-        <div className="mt-6 text-sm text-white/70">
-          Prefer email? (Add your email here later.)
-        </div>
+        <div className="mt-6 text-sm text-white/70">Prefer email?</div>
+        <a
+          className="mt-2 inline-flex text-white hover:underline"
+          href={business.emailHref}
+        >
+          {business.emailDisplay}
+        </a>
       </div>
     </main>
   );

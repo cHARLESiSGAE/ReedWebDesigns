@@ -9,9 +9,14 @@ export function SiteFooter() {
             <div className="font-semibold text-white">{business.name}</div>
             <div className="text-white/70">Owner: {business.owner}</div>
           </div>
-          <a className="text-white hover:underline" href={business.phoneHref}>
-            {business.phoneDisplay}
-          </a>
+          <div className="flex flex-col items-start gap-1 sm:items-end">
+            <a className="text-white hover:underline" href={business.phoneHref}>
+              {business.phoneDisplay}
+            </a>
+            <a className="text-white hover:underline" href={business.emailHref}>
+              {business.emailDisplay}
+            </a>
+          </div>
         </div>
       </div>
     </footer>
