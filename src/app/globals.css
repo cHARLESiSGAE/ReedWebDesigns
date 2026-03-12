@@ -256,3 +256,47 @@
   transform: translateY(-4px);
   box-shadow: 0 24px 70px rgba(0, 0, 0, 0.45);
 }
+
+/* --- Hero / package glow accents (above-the-fold) --- */
+.hero-glass {
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.05) inset,
+    0 30px 90px rgba(0, 0, 0, 0.55);
+}
+
+.package-mini {
+  background: rgba(0, 0, 0, 0.18);
+  backdrop-filter: blur(12px);
+}
+
+.glow-amber {
+  border-color: rgba(245, 158, 11, 0.22);
+  box-shadow:
+    0 0 0 1px rgba(245, 158, 11, 0.10) inset,
+    0 18px 70px rgba(245, 158, 11, 0.10),
+    0 26px 80px rgba(0, 0, 0, 0.55);
+}
+
+.glow-cyan {
+  border-color: rgba(34, 211, 238, 0.22);
+  box-shadow:
+    0 0 0 1px rgba(34, 211, 238, 0.10) inset,
+    0 18px 70px rgba(34, 211, 238, 0.10),
+    0 26px 80px rgba(0, 0, 0, 0.55);
+}
+
+.glow-purple {
+  border-color: rgba(168, 85, 247, 0.24);
+  box-shadow:
+    0 0 0 1px rgba(168, 85, 247, 0.10) inset,
+    0 18px 70px rgba(168, 85, 247, 0.11),
+    0 26px 80px rgba(0, 0, 0, 0.55);
+}
+
+.glow-emerald {
+  border-color: rgba(16, 185, 129, 0.18);
+  box-shadow:
+    0 0 0 1px rgba(16, 185, 129, 0.08) inset,
+    0 18px 70px rgba(16, 185, 129, 0.08),
+    0 26px 80px rgba(0, 0, 0, 0.55);
+}
