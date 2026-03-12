@@ -510,10 +510,23 @@ export default function IntakePage() {
       </div>
 
       <Script id="intakeFormScript" strategy="afterInteractive">{`
-        document.getElementById('intakeForm').addEventListener('submit', function(e) {
+        document.getElementById('intakeForm').addEventListener('submit', async function(e) {
           e.preventDefault();
-          document.getElementById('successMsg').style.display = 'block';
-          window.scrollTo({ top: document.getElementById('successMsg').offsetTop - 20, behavior: 'smooth' });
+          const form = e.target;
+          const data = new FormData(form);
+
+          const response = await fetch('https://api.web3forms.com/submit', {
+            method: 'POST',
+            body: data
+          });
+
+          if (response.ok) {
+            document.getElementById('successMsg').style.display = 'block';
+            form.reset();
+            window.scrollTo({ top: document.getElementById('successMsg').offsetTop - 20, behavior: 'smooth' });
+          } else {
+            alert('Something went wrong. Please try again or contact Charlie directly.');
+          }
         });
       `}</Script>
     </main>
