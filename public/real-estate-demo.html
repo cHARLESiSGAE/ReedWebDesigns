@@ -1,0 +1,1548 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Harbor & Pine Realty — Real Estate Demo</title>
+  <meta name="description" content="Professional real estate webpage demo with mock listings, search, filters, agent info, and contact CTAs." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg: #f7f8fb;
+      --card: #ffffff;
+      --ink: #0b1220;
+      --muted: #5a6478;
+      --line: rgba(15, 23, 42, 0.10);
+      --navy: #0b1f3a;
+      --blue: #2563eb;
+      --blue2:#1d4ed8;
+      --teal: #0ea5a4;
+      --gold: #b8906a;
+      --ok: #16a34a;
+      --warn: #f59e0b;
+      --shadow: 0 16px 44px rgba(11, 18, 32, 0.12);
+      --shadow2: 0 6px 20px rgba(11, 18, 32, 0.08);
+      --r16: 16px;
+      --r20: 20px;
+      --r999: 999px;
+    }
+
+    *{ box-sizing: border-box; }
+    html, body{ height: 100%; }
+    body{
+      margin:0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      color: var(--ink);
+      background: var(--bg);
+      letter-spacing: -0.01em;
+    }
+
+    a{ color: inherit; text-decoration: none; }
+    button, input, select{ font: inherit; }
+    .container{
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 0 18px;
+    }
+
+    .topbar{
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      background: rgba(247, 248, 251, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .topbar__row{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 14px;
+      padding: 12px 0;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap: 10px;
+      min-width: 220px;
+    }
+    .logo{
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      background:
+        radial-gradient(70% 70% at 30% 30%, rgba(184,144,106,0.55) 0%, rgba(184,144,106,0.10) 60%),
+        linear-gradient(135deg, rgba(11,31,58,1) 0%, rgba(37,99,235,0.85) 100%);
+      box-shadow: 0 10px 30px rgba(11,31,58,0.22);
+      position: relative;
+      overflow: hidden;
+    }
+    .logo::after{
+      content:"";
+      position:absolute;
+      inset: -20%;
+      background: radial-gradient(60% 60% at 60% 40%, rgba(255,255,255,0.25), transparent 60%);
+      transform: rotate(16deg);
+    }
+    .brand__name{
+      line-height: 1.05;
+    }
+    .brand__name strong{
+      display:block;
+      font-weight: 900;
+      font-size: 14px;
+      color: var(--navy);
+      letter-spacing: 0.02em;
+    }
+    .brand__name span{
+      display:block;
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    .navlinks{
+      display:flex;
+      align-items:center;
+      gap: 14px;
+      color: var(--muted);
+      font-weight: 600;
+      font-size: 13px;
+      white-space: nowrap;
+    }
+    .navlinks a{
+      padding: 10px 10px;
+      border-radius: 12px;
+    }
+    .navlinks a:hover{
+      background: rgba(15,23,42,0.05);
+      color: var(--ink);
+    }
+
+    .actions{
+      display:flex;
+      align-items:center;
+      gap: 10px;
+      min-width: 240px;
+      justify-content:flex-end;
+    }
+
+    .pill{
+      border: 1px solid var(--line);
+      background: var(--card);
+      border-radius: var(--r999);
+      padding: 10px 12px;
+      display:flex;
+      align-items:center;
+      gap: 10px;
+      box-shadow: 0 2px 10px rgba(11,18,32,0.03);
+    }
+    .pill input{
+      border: 0;
+      outline: none;
+      width: 220px;
+      background: transparent;
+      color: var(--ink);
+      font-weight: 600;
+      font-size: 13px;
+    }
+    .pill input::placeholder{
+      color: rgba(90,100,120,0.75);
+      font-weight: 600;
+    }
+
+    .btn{
+      border: 0;
+      border-radius: var(--r999);
+      padding: 10px 14px;
+      font-weight: 800;
+      cursor:pointer;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap: 8px;
+      transition: transform 0.15s ease, filter 0.15s ease, background 0.15s ease;
+      user-select:none;
+      white-space:nowrap;
+    }
+    .btn:active{ transform: translateY(1px); }
+    .btn--primary{
+      background: var(--navy);
+      color: #fff;
+      box-shadow: 0 14px 40px rgba(11,31,58,0.22);
+    }
+    .btn--primary:hover{ filter: brightness(1.05); }
+    .btn--ghost{
+      background: rgba(15,23,42,0.06);
+      color: var(--ink);
+    }
+    .btn--ghost:hover{ background: rgba(15,23,42,0.08); }
+    .btn--blue{
+      background: var(--blue);
+      color:#fff;
+    }
+    .btn--blue:hover{ background: var(--blue2); }
+
+    .hero{
+      position: relative;
+      overflow: hidden;
+      border-bottom: 1px solid var(--line);
+      background:
+        radial-gradient(900px 500px at 22% 18%, rgba(37,99,235,0.16), transparent 55%),
+        radial-gradient(900px 600px at 84% 26%, rgba(184,144,106,0.14), transparent 60%),
+        linear-gradient(180deg, rgba(255,255,255,0.75), rgba(247,248,251,1));
+    }
+    .hero__grid{
+      display:grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 18px;
+      padding: 22px 0 18px;
+      align-items: stretch;
+    }
+
+    .heroCard{
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 26px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .featured{
+      display:grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      min-height: 340px;
+    }
+
+    .featured__media{
+      position: relative;
+      background: #0b1220;
+      overflow: hidden;
+    }
+
+    .featured__media img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+      filter: saturate(1.05) contrast(1.02);
+    }
+
+    .featured__media::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background: linear-gradient(90deg, rgba(11,18,32,0.00) 30%, rgba(11,18,32,0.62) 100%);
+      pointer-events:none;
+    }
+
+    .featured__badge{
+      position:absolute;
+      top: 14px;
+      left: 14px;
+      background: rgba(255,255,255,0.90);
+      color: var(--navy);
+      border-radius: var(--r999);
+      padding: 8px 12px;
+      font-weight: 900;
+      font-size: 12px;
+      display:inline-flex;
+      align-items:center;
+      gap: 8px;
+      border: 1px solid rgba(11,31,58,0.12);
+    }
+    .dot{
+      width: 8px;
+      height: 8px;
+      border-radius: 99px;
+      background: var(--gold);
+      box-shadow: 0 0 0 4px rgba(184,144,106,0.20);
+    }
+
+    .featured__content{
+      padding: 18px 18px 16px;
+      display:flex;
+      flex-direction:column;
+      gap: 10px;
+    }
+
+    .kicker{
+      display:flex;
+      align-items:center;
+      gap: 10px;
+      color: var(--muted);
+      font-weight: 800;
+      font-size: 12px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+    .kicker .chip{
+      letter-spacing: 0.02em;
+      text-transform:none;
+      font-size: 12px;
+      font-weight: 900;
+      color: var(--navy);
+      background: rgba(37,99,235,0.10);
+      border: 1px solid rgba(37,99,235,0.18);
+      padding: 7px 10px;
+      border-radius: var(--r999);
+    }
+
+    .featured__title{
+      font-size: 26px;
+      line-height: 1.15;
+      letter-spacing: -0.03em;
+      font-weight: 900;
+      color: var(--ink);
+      margin: 0;
+    }
+    .featured__sub{
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    .stats{
+      display:flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 4px;
+    }
+    .stat{
+      border: 1px solid var(--line);
+      border-radius: var(--r999);
+      padding: 8px 10px;
+      background: rgba(15,23,42,0.03);
+      font-weight: 800;
+      font-size: 12px;
+      color: var(--ink);
+      display:inline-flex;
+      align-items:center;
+      gap: 8px;
+    }
+    .stat small{
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--muted);
+    }
+
+    .priceRow{
+      display:flex;
+      align-items:baseline;
+      justify-content:space-between;
+      gap: 12px;
+      margin-top: 6px;
+    }
+    .price{
+      font-size: 28px;
+      font-weight: 950;
+      color: var(--navy);
+      letter-spacing: -0.04em;
+    }
+    .price small{
+      font-weight: 800;
+      color: var(--muted);
+      font-size: 13px;
+      margin-left: 6px;
+      letter-spacing: 0;
+    }
+
+    .ctaRow{
+      display:flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: auto;
+    }
+
+    .agentCard{
+      padding: 16px 16px 16px;
+      display:flex;
+      flex-direction:column;
+      gap: 12px;
+    }
+    .agentTop{
+      display:flex;
+      gap: 12px;
+      align-items:center;
+    }
+    .avatar{
+      width: 46px;
+      height: 46px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, rgba(37,99,235,0.25), rgba(184,144,106,0.25));
+      border: 1px solid rgba(11,31,58,0.12);
+      overflow:hidden;
+      flex: 0 0 auto;
+    }
+    .agentMeta strong{
+      display:block;
+      font-weight: 950;
+      color: var(--ink);
+      font-size: 14px;
+      letter-spacing: -0.02em;
+    }
+    .agentMeta span{
+      display:block;
+      color: var(--muted);
+      font-size: 12px;
+      margin-top: 2px;
+      font-weight: 700;
+    }
+    .agentNote{
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.6;
+      margin: 0;
+    }
+    .agentGrid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    .agentBox{
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 12px;
+      background: rgba(15,23,42,0.02);
+    }
+    .agentBox b{
+      display:block;
+      font-weight: 950;
+      color: var(--navy);
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+    .agentBox a{
+      color: var(--ink);
+      font-weight: 900;
+      font-size: 13px;
+    }
+    .agentBox a:hover{
+      color: var(--blue);
+    }
+
+    .filters{
+      margin-top: 14px;
+      background: rgba(255,255,255,0.70);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      box-shadow: var(--shadow2);
+      overflow: hidden;
+    }
+    .filters__row{
+      display:grid;
+      grid-template-columns: 1.35fr 0.85fr 0.85fr 0.75fr auto;
+      gap: 10px;
+      padding: 12px;
+      align-items:center;
+    }
+    .field{
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 10px 12px;
+      background: #fff;
+      display:flex;
+      align-items:center;
+      gap: 10px;
+      min-height: 44px;
+    }
+    .field label{
+      font-size: 12px;
+      font-weight: 900;
+      color: var(--muted);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+    .field input, .field select{
+      border: 0;
+      outline: none;
+      width: 100%;
+      background: transparent;
+      font-weight: 800;
+      font-size: 13px;
+      color: var(--ink);
+    }
+    .field select{ cursor:pointer; }
+
+    .chips{
+      display:flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      padding: 0 12px 12px;
+    }
+    .chipBtn{
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.88);
+      border-radius: var(--r999);
+      padding: 8px 12px;
+      font-weight: 900;
+      font-size: 12px;
+      color: var(--ink);
+      cursor:pointer;
+      transition: background 0.15s ease;
+      user-select:none;
+    }
+    .chipBtn:hover{ background: rgba(15,23,42,0.04); }
+    .chipBtn[aria-pressed="true"]{
+      background: rgba(37,99,235,0.12);
+      border-color: rgba(37,99,235,0.22);
+      color: var(--navy);
+    }
+
+    .main{
+      padding: 18px 0 80px;
+    }
+    .layout{
+      display:grid;
+      grid-template-columns: 1fr 340px;
+      gap: 14px;
+      align-items:start;
+    }
+
+    .panel{
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      box-shadow: var(--shadow2);
+      overflow:hidden;
+    }
+
+    .panelHeader{
+      padding: 14px 14px 12px;
+      border-bottom: 1px solid var(--line);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 10px;
+    }
+    .panelHeader h2{
+      margin:0;
+      font-size: 14px;
+      letter-spacing: -0.02em;
+      font-weight: 950;
+      color: var(--ink);
+    }
+    .panelHeader .meta{
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 800;
+      display:flex;
+      align-items:center;
+      gap: 10px;
+    }
+    .select{
+      border: 1px solid var(--line);
+      background: rgba(15,23,42,0.03);
+      padding: 8px 10px;
+      border-radius: 14px;
+      font-weight: 900;
+      font-size: 12px;
+      color: var(--ink);
+      cursor: pointer;
+    }
+
+    .grid{
+      padding: 14px;
+      display:grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .card{
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      overflow:hidden;
+      background: #fff;
+      box-shadow: 0 10px 22px rgba(11,18,32,0.07);
+      display:flex;
+      flex-direction:column;
+      min-height: 100%;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+    .card:hover{
+      transform: translateY(-2px);
+      box-shadow: 0 16px 34px rgba(11,18,32,0.10);
+    }
+    .card__img{
+      position: relative;
+      height: 160px;
+      overflow:hidden;
+      background:#0b1220;
+    }
+    .card__img img{
+      width:100%;
+      height:100%;
+      object-fit: cover;
+      display:block;
+    }
+    .card__tag{
+      position:absolute;
+      top: 10px;
+      left: 10px;
+      background: rgba(255,255,255,0.92);
+      border: 1px solid rgba(11,31,58,0.12);
+      border-radius: var(--r999);
+      padding: 7px 10px;
+      font-weight: 950;
+      font-size: 12px;
+      color: var(--navy);
+      display:inline-flex;
+      align-items:center;
+      gap: 8px;
+    }
+    .card__tag i{
+      width: 8px;
+      height: 8px;
+      border-radius: 99px;
+      background: var(--teal);
+      box-shadow: 0 0 0 4px rgba(14,165,164,0.18);
+      display:inline-block;
+    }
+    .card__body{
+      padding: 12px 12px 12px;
+      display:flex;
+      flex-direction:column;
+      gap: 8px;
+    }
+    .card__price{
+      font-weight: 950;
+      font-size: 18px;
+      color: var(--navy);
+      letter-spacing: -0.03em;
+    }
+    .card__addr{
+      font-weight: 900;
+      font-size: 13px;
+      color: var(--ink);
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+    }
+    .card__sub{
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+      line-height: 1.35;
+    }
+    .miniStats{
+      display:flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 2px;
+    }
+    .mini{
+      border: 1px solid var(--line);
+      background: rgba(15,23,42,0.03);
+      border-radius: var(--r999);
+      padding: 6px 8px;
+      font-weight: 900;
+      font-size: 11px;
+      color: var(--ink);
+    }
+    .card__actions{
+      display:flex;
+      gap: 8px;
+      margin-top: 6px;
+      flex-wrap: wrap;
+    }
+    .btnSm{
+      padding: 9px 10px;
+      border-radius: var(--r999);
+      font-weight: 950;
+      font-size: 12px;
+      border: 1px solid var(--line);
+      background: rgba(15,23,42,0.03);
+      cursor:pointer;
+    }
+    .btnSm:hover{ background: rgba(15,23,42,0.06); }
+    .btnSm--blue{
+      border-color: rgba(37,99,235,0.24);
+      background: rgba(37,99,235,0.10);
+      color: var(--navy);
+    }
+    .btnSm--blue:hover{ background: rgba(37,99,235,0.14); }
+
+    .sidebar{
+      position: sticky;
+      top: 86px;
+      display:flex;
+      flex-direction:column;
+      gap: 12px;
+    }
+
+    .map{
+      padding: 14px;
+    }
+    .mapBox{
+      height: 210px;
+      border-radius: 18px;
+      border: 1px solid var(--line);
+      background:
+        radial-gradient(800px 380px at 20% 20%, rgba(37,99,235,0.16), transparent 55%),
+        radial-gradient(800px 420px at 70% 20%, rgba(184,144,106,0.14), transparent 60%),
+        repeating-linear-gradient(0deg, rgba(15,23,42,0.06) 0px, rgba(15,23,42,0.06) 1px, transparent 1px, transparent 18px),
+        repeating-linear-gradient(90deg, rgba(15,23,42,0.06) 0px, rgba(15,23,42,0.06) 1px, transparent 1px, transparent 18px),
+        #ffffff;
+      position: relative;
+      overflow:hidden;
+    }
+    .pin{
+      position:absolute;
+      width: 12px;
+      height: 12px;
+      border-radius: 99px;
+      background: var(--blue);
+      box-shadow: 0 0 0 7px rgba(37,99,235,0.18);
+      left: 56%;
+      top: 42%;
+    }
+    .pin:nth-child(2){ left: 30%; top: 62%; background: var(--teal); box-shadow: 0 0 0 7px rgba(14,165,164,0.18); }
+    .pin:nth-child(3){ left: 72%; top: 55%; background: var(--gold); box-shadow: 0 0 0 7px rgba(184,144,106,0.18); }
+
+    .sideBlock{
+      padding: 14px;
+    }
+    .sideTitle{
+      font-weight: 950;
+      font-size: 13px;
+      color: var(--ink);
+      letter-spacing: -0.02em;
+      margin: 0 0 8px 0;
+    }
+    .sideText{
+      color: var(--muted);
+      font-weight: 700;
+      font-size: 12px;
+      line-height: 1.55;
+      margin: 0;
+    }
+
+    .contactCard{
+      padding: 14px;
+      display:flex;
+      flex-direction:column;
+      gap: 10px;
+    }
+    .contactRow{
+      display:flex;
+      gap: 12px;
+      align-items:center;
+    }
+    .contactRow .avatar{
+      width: 50px;
+      height: 50px;
+      border-radius: 18px;
+    }
+    .contactActions{
+      display:flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 4px;
+    }
+    .contactActions a{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap: 8px;
+      padding: 10px 12px;
+      border-radius: var(--r999);
+      border: 1px solid var(--line);
+      background: rgba(15,23,42,0.03);
+      font-weight: 950;
+      font-size: 12px;
+    }
+    .contactActions a:hover{ background: rgba(15,23,42,0.06); }
+    .contactActions a.primary{
+      background: var(--navy);
+      color: #fff;
+      border-color: rgba(11,31,58,0.2);
+      box-shadow: 0 16px 40px rgba(11,31,58,0.18);
+    }
+    .contactActions a.primary:hover{ filter: brightness(1.05); }
+
+    .toast{
+      position: fixed;
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: 18px;
+      background: rgba(11,18,32,0.92);
+      color: #fff;
+      padding: 12px 14px;
+      border-radius: 14px;
+      box-shadow: 0 16px 60px rgba(0,0,0,0.30);
+      font-weight: 800;
+      font-size: 13px;
+      display:none;
+      z-index: 60;
+      max-width: min(620px, calc(100vw - 24px));
+    }
+
+    .modalOverlay{
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.52);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding: 16px;
+      z-index: 70;
+    }
+    .modal{
+      width: min(760px, 100%);
+      background: #fff;
+      border-radius: 22px;
+      border: 1px solid rgba(255,255,255,0.30);
+      box-shadow: 0 24px 90px rgba(0,0,0,0.35);
+      overflow:hidden;
+    }
+    .modalTop{
+      padding: 14px 14px 12px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 10px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(247,248,251,0.9);
+      backdrop-filter: blur(8px);
+    }
+    .modalTop strong{
+      font-weight: 950;
+      font-size: 14px;
+      color: var(--ink);
+      letter-spacing: -0.02em;
+    }
+    .modalTop button{
+      border: 1px solid var(--line);
+      background: rgba(15,23,42,0.04);
+      padding: 10px 12px;
+      border-radius: 14px;
+      cursor:pointer;
+      font-weight: 950;
+      font-size: 12px;
+    }
+    .modalTop button:hover{ background: rgba(15,23,42,0.07); }
+    .modalBody{
+      padding: 14px;
+      display:grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 12px;
+    }
+    .modalMedia{
+      border-radius: 18px;
+      overflow:hidden;
+      border: 1px solid var(--line);
+      background:#0b1220;
+      min-height: 240px;
+    }
+    .modalMedia img{
+      width:100%;
+      height:100%;
+      object-fit: cover;
+      display:block;
+    }
+    .modalInfo h3{
+      margin: 0;
+      font-size: 18px;
+      font-weight: 950;
+      letter-spacing: -0.03em;
+      color: var(--navy);
+      line-height: 1.2;
+    }
+    .modalInfo p{
+      margin: 8px 0 0;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 1.6;
+    }
+    .modalForm{
+      margin-top: 12px;
+      display:grid;
+      gap: 10px;
+    }
+    .modalForm .field{
+      border-radius: 16px;
+      min-height: 46px;
+    }
+    .modalForm .btn{
+      width:100%;
+      padding: 12px 14px;
+      border-radius: 16px;
+      justify-content:center;
+    }
+
+    .mobileCta{
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      padding: 10px 12px;
+      background: rgba(247,248,251,0.85);
+      backdrop-filter: blur(10px);
+      border-top: 1px solid var(--line);
+      display:none;
+      z-index: 40;
+    }
+    .mobileCta .row{
+      display:flex;
+      gap: 10px;
+    }
+    .mobileCta .btn{
+      flex: 1;
+      padding: 12px 14px;
+    }
+
+    @media (max-width: 980px){
+      .hero__grid{ grid-template-columns: 1fr; }
+      .featured{ grid-template-columns: 1fr; }
+      .featured__media::after{ background: linear-gradient(180deg, rgba(11,18,32,0.00) 20%, rgba(11,18,32,0.70) 100%); }
+      .layout{ grid-template-columns: 1fr; }
+      .sidebar{ position: static; top: auto; }
+      .grid{ grid-template-columns: repeat(2, 1fr); }
+      .filters__row{ grid-template-columns: 1fr 1fr; }
+      .actions{ min-width: auto; }
+      .pill input{ width: 160px; }
+    }
+    @media (max-width: 640px){
+      .navlinks{ display:none; }
+      .brand{ min-width: auto; }
+      .actions{ min-width: auto; }
+      .pill{ display:none; }
+      .grid{ grid-template-columns: 1fr; }
+      .filters__row{ grid-template-columns: 1fr; }
+      .mobileCta{ display:block; }
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar" role="banner">
+    <div class="container">
+      <div class="topbar__row">
+        <a class="brand" href="#listings" aria-label="Harbor & Pine Realty demo home">
+          <div class="logo" aria-hidden="true"></div>
+          <div class="brand__name">
+            <strong>Harbor &amp; Pine Realty</strong>
+            <span>Coastal homes · Modern listings</span>
+          </div>
+        </a>
+
+        <nav class="navlinks" aria-label="Primary navigation">
+          <a href="#listings">Listings</a>
+          <a href="#neighborhoods">Neighborhoods</a>
+          <a href="#agent">Agent</a>
+          <a href="#faq">FAQ</a>
+        </nav>
+
+        <div class="actions">
+          <div class="pill" aria-label="Quick search">
+            <span aria-hidden="true">⌕</span>
+            <input id="quickSearch" type="search" placeholder="Search address, city, ZIP…" autocomplete="off" />
+          </div>
+          <button class="btn btn--primary" id="openTourTop" type="button">Schedule a tour</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <header class="hero">
+    <div class="container">
+      <div class="hero__grid">
+        <div class="heroCard">
+          <div class="featured">
+            <div class="featured__media">
+              <div class="featured__badge"><span class="dot" aria-hidden="true"></span> Featured · Open House (Demo)</div>
+              <img alt="Featured property placeholder" src="https://images.unsplash.com/photo-1568605114967-8130f3a36994?auto=format&fit=crop&w=1400&q=80" />
+            </div>
+            <div class="featured__content">
+              <div class="kicker">
+                <span>JUST LISTED</span>
+                <span class="chip">3D Tour Available (Mock)</span>
+              </div>
+              <h1 class="featured__title">Modern Coastal Retreat with Ocean Views</h1>
+              <p class="featured__sub">123 Seabreeze Ave, San Diego, CA 92101 · Bright interiors, oversized windows, and a private terrace built for sunsets.</p>
+              <div class="stats" aria-label="Featured property highlights">
+                <div class="stat">🛏️ <span>4</span> <small>Beds</small></div>
+                <div class="stat">🛁 <span>3</span> <small>Baths</small></div>
+                <div class="stat">📐 <span>2,480</span> <small>Sq Ft</small></div>
+                <div class="stat">🌿 <span>0.18</span> <small>Acres</small></div>
+              </div>
+              <div class="priceRow">
+                <div class="price">$1,895,000 <small>Est. $10,420/mo (Demo)</small></div>
+              </div>
+              <div class="ctaRow">
+                <button class="btn btn--blue" id="openTourFeatured" type="button">Request a showing</button>
+                <button class="btn btn--ghost" id="saveFeatured" type="button">Save listing</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <aside class="heroCard agentCard" id="agent">
+          <div class="agentTop">
+            <div class="avatar" aria-hidden="true"></div>
+            <div class="agentMeta">
+              <strong>Avery Chen</strong>
+              <span>Broker Associate · DRE# 01234567 (Mock)</span>
+            </div>
+          </div>
+          <p class="agentNote">I help buyers win in competitive markets with clear guidance and fast communication. Tap to call/text — this is demo info only.</p>
+
+          <div class="agentGrid">
+            <div class="agentBox">
+              <b>Call</b>
+              <a href="tel:+18583055764">(858) 305-5764</a>
+            </div>
+            <div class="agentBox">
+              <b>Email</b>
+              <a href="mailto:avery@harborpine.demo">avery@harborpine.demo</a>
+            </div>
+          </div>
+
+          <div class="agentBox">
+            <b>Availability</b>
+            <div style="display:flex; gap:8px; flex-wrap:wrap;">
+              <span class="mini" style="background: rgba(34,197,94,0.14); border-color: rgba(34,197,94,0.22);">Today: 3 openings</span>
+              <span class="mini">Weekend tours</span>
+              <span class="mini">Virtual tours</span>
+            </div>
+          </div>
+
+          <div class="contactActions">
+            <a class="primary" href="#!" id="openTourAgent">Book a tour</a>
+            <a href="#!" id="copyAgentLink">Share</a>
+            <a href="#listings">Browse homes</a>
+          </div>
+        </aside>
+      </div>
+
+      <section class="filters" aria-label="Search and filter listings">
+        <div class="filters__row">
+          <div class="field">
+            <label for="q">Search</label>
+            <input id="q" type="search" placeholder="City, address, ZIP, MLS# (mock)" autocomplete="off" />
+          </div>
+
+          <div class="field">
+            <label for="price">Price</label>
+            <select id="price">
+              <option value="any">Any</option>
+              <option value="0-750">$0–$750k</option>
+              <option value="750-1200">$750k–$1.2M</option>
+              <option value="1200-2000">$1.2M–$2.0M</option>
+              <option value="2000+">$2.0M+</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="beds">Beds</label>
+            <select id="beds">
+              <option value="any">Any</option>
+              <option value="2">2+</option>
+              <option value="3">3+</option>
+              <option value="4">4+</option>
+              <option value="5">5+</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="type">Type</label>
+            <select id="type">
+              <option value="any">Any</option>
+              <option value="single">Single-family</option>
+              <option value="condo">Condo</option>
+              <option value="townhome">Townhome</option>
+              <option value="new">New construction</option>
+            </select>
+          </div>
+
+          <button class="btn btn--primary" id="apply" type="button">Search</button>
+        </div>
+
+        <div class="chips" id="neighborhoods" aria-label="Neighborhood quick filters">
+          <button class="chipBtn" type="button" data-chip="any" aria-pressed="true">All areas</button>
+          <button class="chipBtn" type="button" data-chip="Downtown" aria-pressed="false">Downtown</button>
+          <button class="chipBtn" type="button" data-chip="La Jolla" aria-pressed="false">La Jolla</button>
+          <button class="chipBtn" type="button" data-chip="North Park" aria-pressed="false">North Park</button>
+          <button class="chipBtn" type="button" data-chip="Del Mar" aria-pressed="false">Del Mar</button>
+          <button class="chipBtn" type="button" data-chip="Encinitas" aria-pressed="false">Encinitas</button>
+        </div>
+      </section>
+    </div>
+  </header>
+
+  <main class="main" id="listings">
+    <div class="container">
+      <div class="layout">
+        <section class="panel" aria-label="Property results">
+          <div class="panelHeader">
+            <h2>Homes for Sale <span style="color: var(--muted); font-weight: 900;">(Demo)</span></h2>
+            <div class="meta">
+              <span id="count">—</span>
+              <select class="select" id="sort" aria-label="Sort results">
+                <option value="featured">Sort: Featured</option>
+                <option value="priceDesc">Price: High → Low</option>
+                <option value="priceAsc">Price: Low → High</option>
+                <option value="newest">Newest</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="grid" id="grid" aria-live="polite"></div>
+        </section>
+
+        <aside class="sidebar" aria-label="Sidebar information">
+          <section class="panel map" aria-label="Map preview (mock)">
+            <div class="panelHeader">
+              <h2>Map preview</h2>
+              <div class="meta">Pins are placeholders</div>
+            </div>
+            <div class="mapBox" role="img" aria-label="Stylized map placeholder with pins">
+              <span class="pin" aria-hidden="true"></span>
+              <span class="pin" aria-hidden="true"></span>
+              <span class="pin" aria-hidden="true"></span>
+            </div>
+            <div style="margin-top: 10px; color: var(--muted); font-weight: 800; font-size: 12px;">Tip: Use filters to narrow results. Click a listing for “Request a tour.”</div>
+          </section>
+
+          <section class="panel sideBlock" id="faq" aria-label="FAQ">
+            <div class="panelHeader">
+              <h2>Buyer FAQ</h2>
+              <div class="meta">Quick answers</div>
+            </div>
+            <div style="padding: 14px; display: grid; gap: 12px;">
+              <div>
+                <div class="sideTitle">How do I schedule a showing?</div>
+                <p class="sideText">Click “Request tour” on any listing. You’ll see a simple demo form with preferred time and contact details.</p>
+              </div>
+              <div>
+                <div class="sideTitle">Can I save listings?</div>
+                <p class="sideText">Yes — “Save listing” shows a demo toast. In production, this would connect to an account or saved search.</p>
+              </div>
+              <div>
+                <div class="sideTitle">Are these real properties?</div>
+                <p class="sideText">No. This is demo content only — images and details are placeholders for showcasing layout and UX.</p>
+              </div>
+            </div>
+          </section>
+
+          <section class="panel contactCard" aria-label="Contact agent">
+            <div class="panelHeader">
+              <h2>Contact</h2>
+              <div class="meta">Fast response (demo)</div>
+            </div>
+            <div class="contactRow">
+              <div class="avatar" aria-hidden="true"></div>
+              <div class="agentMeta">
+                <strong>Avery Chen</strong>
+                <span>Text or call · Tours daily</span>
+              </div>
+            </div>
+            <div class="contactActions">
+              <a class="primary" href="tel:+18583055764">Call agent</a>
+              <a href="sms:+18583055764?&body=Hi%20Avery%2C%20I%27d%20like%20to%20schedule%20a%20tour%20(Demo).">Text</a>
+              <a href="mailto:avery@harborpine.demo?subject=Tour%20request%20(Demo)">Email</a>
+            </div>
+          </section>
+        </aside>
+      </div>
+    </div>
+  </main>
+
+  <div class="mobileCta" aria-label="Mobile quick actions">
+    <div class="row">
+      <button class="btn btn--primary" type="button" id="openTourMobile">Schedule tour</button>
+      <button class="btn btn--ghost" type="button" id="scrollToListings">Browse</button>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <div class="modalOverlay" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal">
+      <div class="modalTop">
+        <strong id="modalTitle">Request a tour</strong>
+        <button type="button" id="closeModal" aria-label="Close dialog">Close</button>
+      </div>
+      <div class="modalBody">
+        <div class="modalMedia"><img id="modalImg" alt="Selected property placeholder" src="" /></div>
+        <div class="modalInfo">
+          <h3 id="modalAddr">—</h3>
+          <p id="modalMeta">—</p>
+          <form class="modalForm" id="tourForm">
+            <div class="field">
+              <label for="tourName">Name</label>
+              <input id="tourName" required placeholder="Your name" />
+            </div>
+            <div class="field">
+              <label for="tourContact">Phone / Email</label>
+              <input id="tourContact" required placeholder="(858) 000-0000 or you@email.com" />
+            </div>
+            <div class="field">
+              <label for="tourTime">Preferred time</label>
+              <select id="tourTime">
+                <option>Today (late afternoon)</option>
+                <option>Tomorrow morning</option>
+                <option>Tomorrow evening</option>
+                <option>This weekend</option>
+                <option>Virtual tour</option>
+              </select>
+            </div>
+            <button class="btn btn--blue" type="submit">Send request (demo)</button>
+            <button class="btn btn--ghost" type="button" id="callAgentFromModal">Call agent</button>
+          </form>
+          <p style="margin: 10px 0 0; color: rgba(90,100,120,0.9); font-weight: 800; font-size: 12px; line-height: 1.5;">Demo only: submitting shows a confirmation toast. In production, this would email/text the agent or create a lead.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function(){
+      const demoListings = [
+        {
+          id: "MLS-HP-1029",
+          status: "New",
+          type: "single",
+          neighborhood: "La Jolla",
+          price: 1895000,
+          beds: 4,
+          baths: 3,
+          sqft: 2480,
+          address: "123 Seabreeze Ave",
+          city: "San Diego, CA 92101",
+          summary: "Ocean-view terrace, chef’s kitchen, and an airy open plan.",
+          img: "https://images.unsplash.com/photo-1568605114967-8130f3a36994?auto=format&fit=crop&w=1400&q=80"
+        },
+        {
+          id: "MLS-HP-1102",
+          status: "Open House",
+          type: "townhome",
+          neighborhood: "North Park",
+          price: 845000,
+          beds: 3,
+          baths: 2,
+          sqft: 1560,
+          address: "48 Juniper Row",
+          city: "San Diego, CA 92104",
+          summary: "Walkable neighborhood, modern finishes, and a rooftop deck.",
+          img: "https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&w=1400&q=80"
+        },
+        {
+          id: "MLS-HP-1188",
+          status: "Price Drop",
+          type: "condo",
+          neighborhood: "Downtown",
+          price: 699000,
+          beds: 2,
+          baths: 2,
+          sqft: 1120,
+          address: "901 Harbor View #12",
+          city: "San Diego, CA 92101",
+          summary: "High-rise views, amenities (demo), and strong natural light.",
+          img: "https://images.unsplash.com/photo-1484154218962-a197022b5858?auto=format&fit=crop&w=1400&q=80"
+        },
+        {
+          id: "MLS-HP-1241",
+          status: "New",
+          type: "new",
+          neighborhood: "Encinitas",
+          price: 2140000,
+          beds: 5,
+          baths: 4,
+          sqft: 3180,
+          address: "77 Eucalyptus Crest",
+          city: "Encinitas, CA 92024",
+          summary: "New construction vibe with indoor-outdoor living spaces.",
+          img: "https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?auto=format&fit=crop&w=1400&q=80"
+        },
+        {
+          id: "MLS-HP-1307",
+          status: "Open House",
+          type: "single",
+          neighborhood: "Del Mar",
+          price: 3295000,
+          beds: 4,
+          baths: 4,
+          sqft: 3050,
+          address: "6 Ocean Bluff Ln",
+          city: "Del Mar, CA 92014",
+          summary: "Prestige location, refined interiors, and sunset patios.",
+          img: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1400&q=80"
+        },
+        {
+          id: "MLS-HP-1359",
+          status: "Value",
+          type: "condo",
+          neighborhood: "Downtown",
+          price: 585000,
+          beds: 1,
+          baths: 1,
+          sqft: 760,
+          address: "311 Market St #705",
+          city: "San Diego, CA 92101",
+          summary: "Low-maintenance living with a clean, modern aesthetic.",
+          img: "https://images.unsplash.com/photo-1523217582562-09d0def993a6?auto=format&fit=crop&w=1400&q=80"
+        }
+      ];
+
+      const $ = (id) => document.getElementById(id);
+      const grid = $("grid");
+      const count = $("count");
+      const q = $("q");
+      const quick = $("quickSearch");
+      const price = $("price");
+      const beds = $("beds");
+      const type = $("type");
+      const sort = $("sort");
+      const apply = $("apply");
+      const toast = $("toast");
+
+      const chips = Array.from(document.querySelectorAll(".chipBtn"));
+      let activeNeighborhood = "any";
+      let lastResults = demoListings.slice();
+
+      function money(n){
+        return "$" + n.toLocaleString("en-US", { maximumFractionDigits: 0 });
+      }
+
+      function statusDot(status){
+        if (status === "Open House") return { c: "var(--ok)", glow: "rgba(22,163,74,0.18)" };
+        if (status === "Price Drop") return { c: "var(--warn)", glow: "rgba(245,158,11,0.22)" };
+        return { c: "var(--teal)", glow: "rgba(14,165,164,0.18)" };
+      }
+
+      function showToast(msg){
+        toast.textContent = msg;
+        toast.style.display = "block";
+        clearTimeout(showToast._t);
+        showToast._t = setTimeout(()=> toast.style.display = "none", 2400);
+      }
+
+      function matchesPriceRange(p, range){
+        if (range === "any") return true;
+        if (range === "2000+") return p.price >= 2000000;
+        const [min,max] = range.split("-").map(Number);
+        return p.price >= (min*1000) && p.price <= (max*1000);
+      }
+
+      function matchesBeds(p, minBeds){
+        if (minBeds === "any") return true;
+        return p.beds >= Number(minBeds);
+      }
+
+      function matchesType(p, t){
+        if (t === "any") return true;
+        return p.type === t;
+      }
+
+      function matchesNeighborhood(p, n){
+        if (n === "any") return true;
+        return p.neighborhood === n;
+      }
+
+      function matchesQuery(p, query){
+        if (!query) return true;
+        const s = query.trim().toLowerCase();
+        if (!s) return true;
+        const hay = [
+          p.address, p.city, p.neighborhood, p.id, p.summary, p.type, p.status
+        ].join(" ").toLowerCase();
+        return hay.includes(s);
+      }
+
+      function sortResults(items, mode){
+        const arr = items.slice();
+        if (mode === "priceDesc") arr.sort((a,b)=> b.price - a.price);
+        else if (mode === "priceAsc") arr.sort((a,b)=> a.price - b.price);
+        else if (mode === "newest") arr.sort((a,b)=> (a.id < b.id ? 1 : -1));
+        else {
+          const rank = (p) => (p.status === "New" ? 3 : p.status === "Open House" ? 2 : 1);
+          arr.sort((a,b)=> rank(b) - rank(a));
+        }
+        return arr;
+      }
+
+      function render(items){
+        grid.innerHTML = "";
+        count.textContent = items.length + " results";
+        items.forEach(p => {
+          const dot = statusDot(p.status);
+          const el = document.createElement("article");
+          el.className = "card";
+          el.innerHTML = `
+            <div class="card__img">
+              <img alt="Property image placeholder" src="${p.img}">
+              <div class="card__tag"><i style="background:${dot.c}; box-shadow: 0 0 0 4px ${dot.glow}"></i>${p.status}</div>
+            </div>
+            <div class="card__body">
+              <div class="card__price">${money(p.price)}</div>
+              <div class="card__addr">${p.address}</div>
+              <div class="card__sub">${p.city} · ${p.neighborhood} · ${p.id}</div>
+              <div class="miniStats">
+                <span class="mini">🛏️ ${p.beds} bd</span>
+                <span class="mini">🛁 ${p.baths} ba</span>
+                <span class="mini">📐 ${p.sqft.toLocaleString()} sq ft</span>
+              </div>
+              <div class="card__sub">${p.summary}</div>
+              <div class="card__actions">
+                <button class="btnSm btnSm--blue" type="button" data-action="tour">Request tour</button>
+                <button class="btnSm" type="button" data-action="save">Save</button>
+                <button class="btnSm" type="button" data-action="share">Share</button>
+              </div>
+            </div>
+          `;
+
+          el.addEventListener("click", (e) => {
+            const btn = e.target.closest("button");
+            if (!btn) return;
+            const act = btn.getAttribute("data-action");
+            if (act === "tour") openModal(p);
+            if (act === "save") showToast("Saved (demo). In production: add to favorites.");
+            if (act === "share") {
+              const url = location.origin + location.pathname + "#listing-" + encodeURIComponent(p.id);
+              navigator.clipboard?.writeText(url).then(()=> showToast("Link copied (demo).")).catch(()=> showToast("Copy not supported."));
+            }
+          });
+
+          el.id = "listing-" + p.id;
+          grid.appendChild(el);
+        });
+
+        if(items.length === 0){
+          const empty = document.createElement("div");
+          empty.style.padding = "14px";
+          empty.style.color = "var(--muted)";
+          empty.style.fontWeight = "800";
+          empty.textContent = "No matches. Try widening filters or clearing search.";
+          grid.appendChild(empty);
+        }
+      }
+
+      function applyFilters(){
+        const query = (q.value || "").trim();
+        const q2 = (quick.value || "").trim();
+        const combinedQuery = query || q2;
+
+        const filtered = demoListings.filter(p => (
+          matchesNeighborhood(p, activeNeighborhood) &&
+          matchesPriceRange(p, price.value) &&
+          matchesBeds(p, beds.value) &&
+          matchesType(p, type.value) &&
+          matchesQuery(p, combinedQuery)
+        ));
+
+        const sorted = sortResults(filtered, sort.value);
+        lastResults = sorted;
+        render(sorted);
+      }
+
+      chips.forEach(btn => {
+        btn.addEventListener("click", () => {
+          chips.forEach(b => b.setAttribute("aria-pressed", "false"));
+          btn.setAttribute("aria-pressed", "true");
+          activeNeighborhood = btn.getAttribute("data-chip");
+          applyFilters();
+        });
+      });
+
+      apply.addEventListener("click", applyFilters);
+      sort.addEventListener("change", applyFilters);
+      [q, quick].forEach(inp => inp.addEventListener("input", () => {
+        clearTimeout(applyFilters._t);
+        applyFilters._t = setTimeout(applyFilters, 180);
+      }));
+      [price, beds, type].forEach(sel => sel.addEventListener("change", applyFilters));
+
+      const modal = $("modal");
+      const closeModal = $("closeModal");
+      const modalImg = $("modalImg");
+      const modalAddr = $("modalAddr");
+      const modalMeta = $("modalMeta");
+      const tourForm = $("tourForm");
+      const callAgentFromModal = $("callAgentFromModal");
+
+      let activeListing = null;
+
+      function openModal(listing){
+        activeListing = listing;
+        modalImg.src = listing.img;
+        modalAddr.textContent = money(listing.price) + " · " + listing.address;
+        modalMeta.textContent = listing.city + " · " + listing.neighborhood + " · " + listing.beds + " bd · " + listing.baths + " ba · " + listing.sqft.toLocaleString() + " sq ft";
+        modal.style.display = "flex";
+        setTimeout(() => $("tourName").focus(), 0);
+      }
+
+      function close(){
+        modal.style.display = "none";
+        activeListing = null;
+        tourForm.reset();
+      }
+
+      closeModal.addEventListener("click", close);
+      modal.addEventListener("click", (e) => {
+        if (e.target === modal) close();
+      });
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && modal.style.display === "flex") close();
+      });
+
+      tourForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const name = $("tourName").value.trim();
+        const contact = $("tourContact").value.trim();
+        if (!name || !contact) return;
+        const label = activeListing ? activeListing.address : "the property";
+        close();
+        showToast("Tour request sent (demo) — we’ll follow up about " + label + ".");
+      });
+
+      callAgentFromModal.addEventListener("click", () => {
+        location.href = "tel:+18583055764";
+      });
+
+      function openTourDefault(){
+        openModal({
+          img: "https://images.unsplash.com/photo-1568605114967-8130f3a36994?auto=format&fit=crop&w=1400&q=80",
+          price: 1895000,
+          address: "123 Seabreeze Ave",
+          city: "San Diego, CA 92101",
+          neighborhood: "La Jolla",
+          beds: 4,
+          baths: 3,
+          sqft: 2480
+        });
+      }
+
+      $("openTourTop").addEventListener("click", openTourDefault);
+      $("openTourFeatured").addEventListener("click", openTourDefault);
+      $("openTourAgent").addEventListener("click", (e) => { e.preventDefault(); openTourDefault(); });
+      $("openTourMobile").addEventListener("click", openTourDefault);
+
+      $("saveFeatured").addEventListener("click", () => showToast("Saved featured listing (demo)."));
+      $("copyAgentLink").addEventListener("click", async (e) => {
+        e.preventDefault();
+        const url = location.href.split("#")[0] + "#agent";
+        try{
+          await navigator.clipboard.writeText(url);
+          showToast("Agent link copied (demo).");
+        }catch{
+          showToast("Copy not supported.");
+        }
+      });
+
+      $("scrollToListings").addEventListener("click", () => {
+        document.querySelector("#listings").scrollIntoView({ behavior: "smooth" });
+      });
+
+      applyFilters();
+    })();
+  </script>
+</body>
+</html>
