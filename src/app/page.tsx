@@ -92,7 +92,7 @@ export default function Home() {
             <div className="mt-6 max-w-2xl rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-sm text-white/80">
               <span className="font-semibold text-white">Quick process:</span> send your business type + market + vibe.
               I’ll reply with next steps and a simple scope (same day when you text/call).
-              If you want, start with the <Link className="underline underline-offset-4" href="/intake">intake form</Link>.
+              If you want, start with the <Link className="underline underline-offset-4" href="/get-started">intake form</Link>.
             </div>
           </div>
         </div>

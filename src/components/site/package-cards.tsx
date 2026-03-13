@@ -77,7 +77,7 @@ export function PackageCards({ showManagement = true }: { showManagement?: boole
 
             <div className="mt-6 flex flex-col gap-3 sm:flex-row">
               <Link
-                href="/contact"
+                href="/get-started"
                 className="inline-flex flex-1 items-center justify-center rounded-full bg-[rgb(5,8,20)] px-5 py-2.5 text-sm font-semibold text-white hover:bg-[rgb(11,18,36)]"
               >
                 Get started
