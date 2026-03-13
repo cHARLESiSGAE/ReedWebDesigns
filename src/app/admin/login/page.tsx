@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
-import { supabase } from "@/lib/supabase";
+import { isSupabaseConfigured, supabase } from "@/lib/supabase";
 import { useAuth } from "@/lib/useAuth";
 
 export default function AdminLoginPage() {
@@ -56,6 +56,12 @@ export default function AdminLoginPage() {
           Admin Login
         </div>
         <div style={{ color: "#7a7888", marginBottom: 14 }}>Sign in with your Supabase Auth account.</div>
+
+        {!isSupabaseConfigured && (
+          <div style={{ marginBottom: 12, color: "#dc2626", fontWeight: 700, fontSize: 14 }}>
+            Supabase env vars are missing in this deployment.
+          </div>
+        )}
 
         <label style={{ display: "block", fontWeight: 600, marginBottom: 6 }}>Email</label>
         <input

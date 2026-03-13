@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { supabase } from "@/lib/supabase";
+import { isSupabaseConfigured, supabase } from "@/lib/supabase";
 
 export default function ClientLoginPage() {
   const router = useRouter();
@@ -34,6 +34,12 @@ export default function ClientLoginPage() {
       >
         <div style={{ fontFamily: "ui-serif, Georgia", fontSize: 26, marginBottom: 6, color: "#18181a" }}>Client Login</div>
         <div style={{ color: "#7a7888", marginBottom: 14 }}>Use your email/password to access your portal.</div>
+
+        {!isSupabaseConfigured && (
+          <div style={{ marginBottom: 12, color: "#dc2626", fontWeight: 700, fontSize: 14 }}>
+            Supabase env vars are missing in this deployment.
+          </div>
+        )}
 
         <label style={{ display: "block", fontWeight: 600, marginBottom: 6 }}>Email</label>
         <input

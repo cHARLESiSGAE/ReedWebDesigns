@@ -20,7 +20,8 @@ export function AdminRoute({ children }: { children: React.ReactNode }) {
     else if (!isAdminEmail(session.user.email)) router.replace("/client/dashboard");
   }, [router, session]);
 
-  if (session === undefined) return null;
+  if (session === undefined)
+    return <div style={{ padding: 16, color: "#7a7888" }}>Loading session…</div>;
   if (session === null) return null;
   if (!isAdminEmail(session.user.email)) return null;
 
@@ -36,7 +37,8 @@ export function ClientRoute({ children }: { children: React.ReactNode }) {
     if (session === null) router.replace("/client/login");
   }, [router, session]);
 
-  if (session === undefined) return null;
+  if (session === undefined)
+    return <div style={{ padding: 16, color: "#7a7888" }}>Loading session…</div>;
   if (session === null) return null;
 
   return <>{children}</>;
