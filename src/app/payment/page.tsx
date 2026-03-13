@@ -48,53 +48,56 @@ const payments: PaymentItem[] = [
 
 export default function PaymentPage() {
   return (
-    <main className="mx-auto max-w-6xl px-6 py-16">
-      <h1 className="text-3xl font-semibold tracking-tight md:text-5xl">Payment</h1>
-      <p className="mt-4 max-w-2xl text-white/70">
-        Use the buttons below to pay via Stripe checkout.
-      </p>
+    <main className="bg-background">
+      <div className="mx-auto max-w-7xl px-6 py-16">
+        <p className="text-xs font-semibold tracking-widest text-[rgb(184,141,47)]">PAYMENT</p>
+        <h1 className="mt-2 text-3xl font-semibold tracking-tight md:text-5xl">Pay via Stripe</h1>
+        <p className="mt-4 max-w-2xl text-muted-foreground">
+          Use the buttons below to pay via Stripe checkout.
+        </p>
 
-      <p className="mt-6 max-w-2xl text-white/70">
-        Before paying, please fill out our quick intake form so we can hit the ground running.{" "}
-        <Link className="text-white underline underline-offset-4" href="/intake">
-          /intake
-        </Link>
-        .
-      </p>
+        <div className="mt-6 max-w-2xl rounded-2xl border border-border bg-card p-5 text-sm text-muted-foreground">
+          Before paying, please fill out the quick intake form so we can hit the ground running: {" "}
+          <Link className="font-semibold text-foreground hover:underline" href="/intake">
+            /intake
+          </Link>
+          .
+        </div>
 
-      <div className="mt-10 grid gap-5 md:grid-cols-2">
-        {payments.map((p) => (
-          <Card key={p.title} className="border-white/10 bg-white/5 p-6 text-white">
-            <div className="flex items-start justify-between gap-4">
-              <div>
-                <div className="text-lg font-semibold">{p.title}</div>
-                <div className="mt-2 text-sm text-white/70">{p.description}</div>
+        <div className="mt-10 grid gap-5 md:grid-cols-2">
+          {payments.map((p) => (
+            <Card key={p.title} className="rounded-3xl border-border bg-card p-6 shadow-sm">
+              <div className="flex items-start justify-between gap-4">
+                <div>
+                  <div className="text-lg font-semibold text-foreground">{p.title}</div>
+                  <div className="mt-2 text-sm text-muted-foreground">{p.description}</div>
+                </div>
+                <div className="text-xl font-semibold text-foreground">{p.price}</div>
               </div>
-              <div className="text-xl font-semibold">{p.price}</div>
-            </div>
 
-            <div className="mt-6">
-              {p.href ? (
-                <a
-                  className="inline-flex w-full items-center justify-center rounded-full bg-white px-4 py-2 text-sm font-semibold text-black hover:bg-neutral-200"
-                  href={p.href}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  {p.buttonLabel}
-                </a>
-              ) : (
-                <button
-                  className="inline-flex w-full items-center justify-center rounded-full bg-white px-4 py-2 text-sm font-semibold text-black hover:bg-neutral-200"
-                  type="button"
-                  disabled
-                >
-                  {p.buttonLabel}
-                </button>
-              )}
-            </div>
-          </Card>
-        ))}
+              <div className="mt-6">
+                {p.href ? (
+                  <a
+                    className="inline-flex w-full items-center justify-center rounded-full bg-[rgb(5,8,20)] px-4 py-2.5 text-sm font-semibold text-white hover:bg-[rgb(11,18,36)]"
+                    href={p.href}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    {p.buttonLabel}
+                  </a>
+                ) : (
+                  <button
+                    className="inline-flex w-full items-center justify-center rounded-full bg-muted px-4 py-2.5 text-sm font-semibold text-muted-foreground"
+                    type="button"
+                    disabled
+                  >
+                    {p.buttonLabel}
+                  </button>
+                )}
+              </div>
+            </Card>
+          ))}
+        </div>
       </div>
     </main>
   );
