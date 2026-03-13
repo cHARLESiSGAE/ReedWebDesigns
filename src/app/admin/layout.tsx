@@ -21,6 +21,11 @@ const nav = [
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname() ?? "";
 
+  // Allow unauthenticated access to the login page.
+  if (pathname.startsWith("/admin/login")) {
+    return <>{children}</>;
+  }
+
   return (
     <AdminRoute>
       <div style={{ display: "flex", minHeight: "100vh", background: "#f8f6f2" }}>
