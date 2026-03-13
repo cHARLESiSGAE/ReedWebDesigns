@@ -1,7 +1,7 @@
 export const business = {
-  name: "Charlie Reed Web Design",
-  owner: "Charlie Reed",
-  phoneDisplay: "858-305-5764",
+  name: "Reed Web Studio",
+  owner: "Charlie",
+  phoneDisplay: "(858) 305-5764",
   phoneHref: "tel:8583055764",
   emailDisplay: "charlespkon@gmail.com",
   emailHref: "mailto:charlespkon@gmail.com",

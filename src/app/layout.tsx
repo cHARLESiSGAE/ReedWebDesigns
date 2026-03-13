@@ -12,9 +12,9 @@ const inter = Inter({
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Charlie Reed Web Design",
+  title: "Reed Web Studio",
   description:
-    "Premium freelance web design for local businesses. Packages from $249+ — restaurants, real estate, home services, and local brands.",
+    "Premium freelance web design for local businesses — restaurants, real estate agents, home services, and local brands.",
 };
 
 export default function RootLayout({
@@ -23,10 +23,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark">
-      <body
-        className={`${inter.variable} ${geistMono.variable} min-h-screen bg-black text-white antialiased`}
-      >
+    <html lang="en">
+      <body className={`${inter.variable} ${geistMono.variable} min-h-screen bg-background text-foreground antialiased`}>
+
         <SiteHeader />
         {children}
         <SiteFooter />
